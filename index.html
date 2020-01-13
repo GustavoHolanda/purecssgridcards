@@ -1,0 +1,457 @@
+<html>
+<header>
+    <title> Display Grid</title>
+</header>
+<link href="https://fonts.googleapis.com/css?family=Righteous&display=swap" rel="stylesheet">
+<style>
+    html,
+    body {
+        width: 100%;
+        height: 100%;
+    }
+
+    body {
+        margin: 0;
+    }
+
+    .container {
+        width: 100%;
+        height: 100%;
+        background-color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .grid {
+        display: grid;
+    }
+
+    .grid-template {
+        position: relative;
+        grid-template-columns: 2fr 1fr minmax(400px, 50%) 1fr;
+        grid-template-rows: 1fr 2fr 1fr;
+        grid-auto-columns: 100px;
+        grid-auto-rows: 100px;
+    }
+
+
+    .grid-template-ob {
+        color: white;
+        grid-template-columns: 15% 55% 15% 15%;
+        grid-template-rows: 1fr 1fr minmax(20px, 1fr) 20px;
+        grid-template-areas:
+            "logo logo logo contactless"
+            "chip content content contactless"
+            "name name flag flag"
+            "date cvv flag flag"
+        ;
+    }
+
+    .grid-template-ob2 {
+        color: white;
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+        grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+        grid-template-areas:
+            "c2 c2 c2 c2 c2 c2"
+            "bb bb bb bb bb bb"
+            "bb bb bb bb bb bb"
+            "c3 c3 c3 c3 c3 c3"
+            "wb wb wb cs cs c5"
+            "wb wb wb cs cs c5 "
+            "c4 c4 c4 flag2 flag2 flag2"
+            "c4 c4 c4 flag2 flag2 flag2"
+            "c4 c4 c4 flag2 flag2 flag2"
+        ;
+    }
+
+    .c2 {
+        grid-area: c2;
+    }
+
+    .c3 {
+        grid-area: c3;
+    }
+
+    .c4 {
+        grid-area: c4;
+    }
+
+    .c5 {
+        grid-area: c5;
+    }
+
+
+    .bb {
+        grid-area: bb;
+        background: black;
+    }
+
+    .wb {
+        grid-area: wb;
+        background-color: white;
+        margin-left: 20px;
+        border-top-right-radius: 10px;
+        border-bottom-right-radius: 10px;
+    }
+
+    .cs {
+        height: 100%;
+        grid-area: cs;
+        background-color: white;
+        margin-left: 20px;
+        margin-right: 40px;
+        color: black;
+        font-family: 'Courier';
+        display: flex;
+        font-size: 18px;
+        text-shadow: 3px 3px 0px rgba(0, 0, 0, 0.4);
+        width: calc(100% - 50px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 10px;
+    }
+
+    .grid-template-first {
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: repeat(2, 1fr);
+    }
+
+    .date {
+        grid-area: date;
+        font-family: 'Courier';
+        font-size: 16px;
+        text-shadow: 3px 3px 0px rgba(0, 0, 0, 0.4);
+    }
+
+    .cvv {
+        grid-area: cvv;
+        font-family: 'Courier';
+        margin-left: 15px;
+        font-size: 16px;
+        text-shadow: 3px 3px 0px rgba(0, 0, 0, 0.4);
+    }
+
+    .logo {
+        grid-area: logo;
+    }
+
+    .content {
+        grid-area: content;
+    }
+
+    .content2 {
+        grid-area: content2;
+    }
+
+
+    .contactless {
+        grid-area: contactless;
+        justify-self: end;
+    }
+
+    .contactless>img {
+        width: 40px;
+        margin-right: -10px;
+    }
+
+    .chip {
+        grid-area: chip;
+        align-self: end;
+    }
+
+    .name {
+        grid-area: name;
+        align-self: end;
+        justify-self: start;
+        font-family: 'Courier';
+        text-shadow: 3px 3px 0px rgba(0, 0, 0, 0.4);
+    }
+
+    .name>small {
+        font-size: 20px;
+    }
+
+    .flag>img,
+    .flag2>img {
+        width: 70px;
+    }
+
+    .flag2>img {
+        margin-right: 15px;
+    }
+
+    .flag {
+        grid-area: flag;
+        align-self: end;
+        justify-self: end;
+    }
+
+    .flag2 {
+        grid-area: flag2;
+        align-self: end;
+        justify-self: end;
+    }
+
+
+    .card,
+    .card-back {
+        box-sizing: border-box;
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        background: linear-gradient(to bottom right, #f7b733, #fc4a1a);
+        border-radius: 20px;
+        box-shadow: 16px 23px 18px 0px rgba(0, 0, 0, 0.25);
+        justify-self: center;
+        align-self: center;
+        transition: all 4s ease-in-out;
+        cursor: pointer;
+        backface-visibility: hidden;
+        z-index: 1;
+    }
+
+    .card::before {
+        content: "UTC";
+        font-family: 'Righteous', cursive;
+        font-size: 120px;
+        position: absolute;
+        z-index: 0;
+        top: 40px;
+        right: 40px;
+        letter-spacing: -23;
+        opacity: .5;
+    }
+
+    .card {
+        padding: 15px;
+
+    }
+
+    .card-back {
+        transform: rotateY(180deg);
+        -ms-transform: rotateY(180deg);
+        -webkit-transform: rotateY(180deg);
+        -moz-transform: rotateY(180deg);
+        -o-transform: rotateY(180deg);
+        padding: 15px 0;
+
+    }
+
+    .flip-card {
+        background-color: transparent;
+        height: 240px;
+        width: 375px;
+        perspective: 1000px;
+        align-self: center;
+        justify-self: center;
+    }
+
+    .flip-card-inner {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        text-align: center;
+        transform: rotateY(-25deg);
+        -ms-transform: rotateY(-25deg);
+        -webkit-transform: rotateY(-25deg);
+        -moz-transform: rotateY(-25deg);
+        -o-transform: rotateY(-25deg);
+        transition: all 0.9s ease-in-out;
+        transform-style: preserve-3d;
+    }
+
+    .flip-card:hover .flip-card-inner {
+        transform: rotateY(200deg);
+        -ms-transform: rotateY(200deg);
+        -webkit-transform: rotateY(200deg);
+        -moz-transform: rotateY(200deg);
+        -o-transform: rotateY(200deg);
+        
+    }
+
+    .color2 {
+        background: linear-gradient(to bottom right, #7F00FF, #E100FF);
+    }
+
+    .color3 {
+        background: linear-gradient(to bottom right, #74ebd5, #ACB6E5);
+    }
+
+    .color4 {
+        background: linear-gradient(to bottom right, #22c1c3, #fdbb2d);
+    }
+
+    .card:hover {
+        transform: scale(1.07);
+        -ms-transform: scale(1.07);
+        -webkit-transform: scale(1.07);
+        -moz-transform: scale(1.07);
+        -o-transform: scale(1.07);
+    }
+
+    .logo {
+        grid-area: logo;
+        color: white;
+        font-size: 26px;
+        justify-self: start;
+        font-family: 'Righteous', cursive;
+    }
+
+    .logo>small {
+        text-shadow: 3px 4px 1px rgba(0, 0, 0, 0.4);
+    }
+
+    .chip {
+        height: 40px;
+        width: 55px;
+        background: linear-gradient(to bottom right, #CCAA66, #FFEB66);
+        border-radius: 5px;
+        border: 1px solid black;
+        position: relative;
+
+    }
+
+    .chip::after {
+        content: "";
+        width: 6px;
+        height: 33px;
+        left: 33px;
+        position: absolute;
+        border-left: 1px solid black;
+        border-bottom: 1px solid black;
+        border-radius: 2px;
+    }
+
+    .chip::before {
+        content: "";
+        right: 21px;
+        position: absolute;
+        top: 8px;
+        height: 17px;
+        left: 0px;
+        border-top: 1px solid black;
+        border-bottom: 1px solid black;
+        border-radius: 2px;
+    }
+</style>
+
+<body>
+    <div class="container grid grid-template-first">
+
+        <div class="flip-card">
+            <div class="flip-card-inner">
+                <div class="card grid  grid-template-ob">
+                    <div class="item logo">
+                        <small>UNCLETCHAICOCARD</small>
+                    </div>
+                    <div class="item content"></div>
+                    <div class="item contactless">
+                        <img src="../Desktop/nfc.png">
+                    </div>
+                    <div class="item chip"></div>
+                    <div class="name"> <small> GUSTAVO F HOLANDA </small></div>
+                    <div class="flag"><img src="../Desktop/visa.png"></div>
+                    <div class="date"> 11/30</div>
+                    <div class="cvv"> 133 01090123-1</div>
+                </div>
+                <div class="card-back  grid grid-template-ob2">
+                    <div class="bb"></div>
+                    <div class="wb"></div>
+                    <div class="c2"></div>
+                    <div class="c3"></div>
+                    <div class="c4"></div>
+                    <div class="cs"> <small> 008</small></div>
+                    <div class="flag2"><img src="../Desktop/visa.png"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="flip-card">
+            <div class="flip-card-inner">
+                <div class="card grid color2 grid-template-ob">
+                    <div class="item logo">
+                        <small>UNCLETCHAICOCARD</small>
+                    </div>
+                    <div class="item content"></div>
+                    <div class="item contactless">
+                        <img src="../Desktop/nfc.png">
+                    </div>
+                    <div class="item chip"></div>
+                    <div class="name"> <small> GUSTAVO F HOLANDA </small></div>
+                    <div class="flag"><img src="../Desktop/visa.png"></div>
+                    <div class="date"> 11/30</div>
+                    <div class="cvv"> 133 01090123-1</div>
+                </div>
+                <div class="card-back color2 grid grid-template-ob2">
+                    <div class="bb"></div>
+                    <div class="wb"></div>
+                    <div class="c2"></div>
+                    <div class="c3"></div>
+                    <div class="c4"></div>
+                    <div class="cs"> <small> 008</small></div>
+                    <div class="flag2"><img src="../Desktop/visa.png"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="flip-card">
+            <div class="flip-card-inner">
+                <div class="card grid color3 grid-template-ob">
+                    <div class="item logo">
+                        <small>UNCLETCHAICOCARD</small>
+                    </div>
+                    <div class="item content"></div>
+                    <div class="item contactless">
+                        <img src="../Desktop/nfc.png">
+                    </div>
+                    <div class="item chip"></div>
+                    <div class="name"> <small> GUSTAVO F HOLANDA </small></div>
+                    <div class="flag"><img src="../Desktop/visa.png"></div>
+                    <div class="date"> 11/30</div>
+                    <div class="cvv"> 133 01090123-1</div>
+                </div>
+                <div class="card-back color3 grid grid-template-ob2">
+                    <div class="bb"></div>
+                    <div class="wb"></div>
+                    <div class="c2"></div>
+                    <div class="c3"></div>
+                    <div class="c4"></div>
+                    <div class="cs"> <small> 008</small></div>
+                    <div class="flag2"><img src="../Desktop/visa.png"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="flip-card">
+            <div class="flip-card-inner">
+                <div class="card  grid color4 grid-template-ob">
+                    <div class="item logo">
+                        <small>UNCLETCHAICOCARD</small>
+                    </div>
+                    <div class="item content"></div>
+                    <div class="item contactless">
+                        <img src="../Desktop/nfc.png">
+                    </div>
+                    <div class="item chip"></div>
+                    <div class="name"> <small> GUSTAVO F HOLANDA </small></div>
+                    <div class="flag"><img src="../Desktop/visa.png"></div>
+                    <div class="date"> 11/30</div>
+                    <div class="cvv"> 133 01090123-1</div>
+                </div>
+                <div class="card-back color4 grid grid-template-ob2 ">
+                    <div class="bb"></div>
+                    <div class="wb"></div>
+                    <div class="c2"></div>
+                    <div class="c3"></div>
+                    <div class="c4"></div>
+                    <div class="cs"> <small> 008</small></div>
+                    <div class="flag2"><img src="../Desktop/visa.png"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
